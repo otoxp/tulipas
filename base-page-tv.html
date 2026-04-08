@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deewangi - Série Completa</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f0f0f;
+    color: #fff;
+}
+
+/* PLAYER */
+#player {
+    width: 100%;
+    height: 50vh;
+    border: none;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+/* CARD */
+.card {
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* THUMB */
+.thumb {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+/* TITLE */
+.title {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<iframe id="player" src="https://www.youtube.com/embed/2X1gs_7WATE" allowfullscreen></iframe>
+
+<div class="grid" id="lista"></div>
+
+<script>
+
+const episodios = [
+ {ep:1,id:"2X1gs_7WATE"},
+ {ep:2,id:"LH_hrhxeSNI"},
+ {ep:3,id:"Pe2_Epk3kuc"},
+ {ep:4,id:"xbxvf7Yh8lc"},
+ {ep:5,id:"wnfMcW9OFKo"},
+ {ep:6,id:"uEcCP39g3cw"},
+ {ep:7,id:"eo9NpRG8jKg"},
+ {ep:8,id:"6xi4E39nut4"},
+ {ep:9,id:"NUrtviAEj8I"},
+ {ep:10,id:"Jb61TEKGleo"},
+ {ep:11,id:"i44cbSmbY3I"},
+ {ep:12,id:"W_-bljsLv7s"},
+ {ep:13,id:"AUlu_KLtJUM"},
+ {ep:14,id:"aPBgcVIFtyI"},
+ {ep:15,id:"FCrO_9mfc9A"},
+ {ep:16,id:"HKv8nCySUtw"},
+ {ep:17,id:"QBoRSI8bEzY"},
+ {ep:18,id:"kTofAfemr-A"},
+ {ep:19,id:"PTCwEP9Czgw"},
+ {ep:20,id:"6YYcHWBmXjI"},
+ {ep:21,id:"jnUwpnNIBcc"},
+ {ep:22,id:"6YYcHWBmXjI"},
+ {ep:23,id:"YvxopvGqgts"},
+ {ep:24,id:"nT3zu5uxqxc"},
+ {ep:25,id:"q9ayh2RyNlg"},
+ {ep:26,id:"gGZcWtWyU8U"},
+ {ep:27,id:"Vet30svRwbM"},
+ {ep:28,id:"ykIKFSVKr5g"},
+ {ep:29,id:"kwzm_si2uXI"},
+ {ep:30,id:"q6Dyy28nSd8"},
+ {ep:31,id:"K2Ql5cm-S78"},
+ {ep:32,id:"eL_wol7rBzQ"},
+ {ep:33,id:"h4lK9Fks5qg"},
+ {ep:34,id:"DoOIAFuJz4s"},
+ {ep:35,id:"XH0Z7C57V7Y"},
+ {ep:36,id:"sf3DKVD36gU"},
+ {ep:37,id:"kRP5zn_v0mU"},
+ {ep:38,id:"DpPU52xeABQ"},
+ {ep:39,id:"JeGr6w6bEIM"},
+ {ep:40,id:"KYSVwA6MxU4"},
+ {ep:41,id:"nKLXANhra6c"}
+];
+
+const lista = document.getElementById("lista");
+
+episodios.forEach(ep => {
+
+    const thumb = `https://img.youtube.com/vi/${ep.id}/hqdefault.jpg`;
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+        <img class="thumb" src="${thumb}">
+        <div class="title">Episódio ${String(ep.ep).padStart(2,'0')}</div>
+    `;
+
+    div.onclick = () => {
+        document.getElementById("player").src =
+            `https://www.youtube.com/embed/${ep.id}?autoplay=1`;
+        window.scrollTo(0,0);
+    };
+
+    lista.appendChild(div);
+});
+
+</script>
+
+</body>
+</html>
