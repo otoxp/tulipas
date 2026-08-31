@@ -1,137 +1,574 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deewangi - Série Completa</title>
+
+<title>Novela Turca</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
     margin: 0;
-    font-family: Arial;
-    background: #0f0f0f;
-    color: #fff;
+    padding: 0;
+    background: #0b0b0b;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* PLAYER */
-#player {
+/* =========================
+   CABEÇALHO
+   ========================= */
+
+.header {
     width: 100%;
-    height: 50vh;
-    border: none;
+    padding: 18px 25px;
+    background: #111111;
+    border-bottom: 1px solid #292929;
 }
 
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.header p {
+    margin: 6px 0 0;
+    color: #aaaaaa;
+    font-size: 15px;
+}
+
+/* =========================
+   PLAYER
+   ========================= */
+
+.player-container {
+    width: 100%;
+    background: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+video {
+    width: 100%;
+    max-height: 72vh;
+    background: #000000;
+    display: block;
+}
+
+/* =========================
+   INFORMAÇÕES
+   ========================= */
+
+.info {
+    padding: 15px 25px;
+    background: #111111;
+    border-bottom: 1px solid #292929;
+}
+
+#tituloAtual {
+    margin: 0;
+    font-size: 20px;
+}
+
+#status {
+    margin-top: 5px;
+    color: #999999;
+    font-size: 14px;
+}
+
+/* =========================
+   CAPÍTULOS
+   ========================= */
+
+.conteudo {
+    padding: 20px 25px 40px;
+}
+
+.conteudo h2 {
+    margin: 0 0 15px;
+    font-size: 22px;
+}
+
+.capitulo {
+    margin-bottom: 25px;
+}
+
+.capitulo-titulo {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+
+.partes {
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    padding: 10px;
 }
 
-/* CARD */
-.card {
-    background: #1c1c1c;
+.parte {
+    border: none;
+    background: #222222;
+    color: #ffffff;
+    padding: 14px 20px;
     border-radius: 8px;
-    overflow: hidden;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.parte:hover {
+    background: #333333;
+    transform: scale(1.03);
 }
 
-/* THUMB */
-.thumb {
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
+.parte.ativa {
+    background: #ffffff;
+    color: #000000;
 }
 
-/* TITLE */
-.title {
-    padding: 8px;
-    font-size: 14px;
+/* =========================
+   RODAPÉ
+   ========================= */
+
+.footer {
     text-align: center;
+    padding: 20px;
+    color: #666666;
+    font-size: 13px;
+}
+
+/* =========================
+   CELULAR
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .conteudo {
+        padding: 15px;
+    }
+
+    .parte {
+        width: 100%;
+        text-align: left;
+    }
+
+    video {
+        max-height: 50vh;
+    }
 }
 </style>
+
 </head>
 
 <body>
 
-<iframe id="player" src="https://www.youtube.com/embed/2X1gs_7WATE" allowfullscreen></iframe>
+<!-- =========================
+     CABEÇALHO
+     ========================= -->
 
-<div class="grid" id="lista"></div>
+<header class="header">
+
+    <h1>Novela Turca</h1>
+
+    <p>
+        Capítulos completos
+    </p>
+
+</header>
+
+
+<!-- =========================
+     PLAYER
+     ========================= -->
+
+<section class="player-container">
+
+    <video
+        id="player"
+        controls
+        preload="metadata"
+        playsinline>
+    </video>
+
+</section>
+
+
+<!-- =========================
+     INFORMAÇÃO DO VÍDEO
+     ========================= -->
+
+<section class="info">
+
+    <h2 id="tituloAtual">
+        Selecione um capítulo
+    </h2>
+
+    <div id="status">
+        Nenhum vídeo selecionado
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LISTA
+     ========================= -->
+
+<main class="conteudo">
+
+    <h2>Capítulos</h2>
+
+    <div id="lista"></div>
+
+</main>
+
+
+<footer class="footer">
+
+    Novela Turca
+
+</footer>
+
 
 <script>
 
-const episodios = [
- {ep:1,id:"2X1gs_7WATE"},
- {ep:2,id:"LH_hrhxeSNI"},
- {ep:3,id:"Pe2_Epk3kuc"},
- {ep:4,id:"xbxvf7Yh8lc"},
- {ep:5,id:"wnfMcW9OFKo"},
- {ep:6,id:"uEcCP39g3cw"},
- {ep:7,id:"eo9NpRG8jKg"},
- {ep:8,id:"6xi4E39nut4"},
- {ep:9,id:"NUrtviAEj8I"},
- {ep:10,id:"Jb61TEKGleo"},
- {ep:11,id:"i44cbSmbY3I"},
- {ep:12,id:"W_-bljsLv7s"},
- {ep:13,id:"AUlu_KLtJUM"},
- {ep:14,id:"aPBgcVIFtyI"},
- {ep:15,id:"FCrO_9mfc9A"},
- {ep:16,id:"HKv8nCySUtw"},
- {ep:17,id:"QBoRSI8bEzY"},
- {ep:18,id:"kTofAfemr-A"},
- {ep:19,id:"PTCwEP9Czgw"},
- {ep:20,id:"6YYcHWBmXjI"},
- {ep:21,id:"jnUwpnNIBcc"},
- {ep:22,id:"6YYcHWBmXjI"},
- {ep:23,id:"YvxopvGqgts"},
- {ep:24,id:"nT3zu5uxqxc"},
- {ep:25,id:"q9ayh2RyNlg"},
- {ep:26,id:"gGZcWtWyU8U"},
- {ep:27,id:"Vet30svRwbM"},
- {ep:28,id:"ykIKFSVKr5g"},
- {ep:29,id:"kwzm_si2uXI"},
- {ep:30,id:"q6Dyy28nSd8"},
- {ep:31,id:"K2Ql5cm-S78"},
- {ep:32,id:"eL_wol7rBzQ"},
- {ep:33,id:"h4lK9Fks5qg"},
- {ep:34,id:"DoOIAFuJz4s"},
- {ep:35,id:"XH0Z7C57V7Y"},
- {ep:36,id:"sf3DKVD36gU"},
- {ep:37,id:"kRP5zn_v0mU"},
- {ep:38,id:"DpPU52xeABQ"},
- {ep:39,id:"JeGr6w6bEIM"},
- {ep:40,id:"KYSVwA6MxU4"},
- {ep:41,id:"nKLXANhra6c"}
+/*
+===========================================================
+CONFIGURAÇÃO
+===========================================================
+
+ALTERE SOMENTE ESTA URL QUANDO COLOCARMOS O VPS.
+
+Exemplo:
+
+https://novela.rapaduratec.cc/videos/
+*/
+
+const VPS = "https://novela.rapaduratec.cc/videos/";
+
+
+/*
+===========================================================
+CAPÍTULOS
+===========================================================
+
+Cada capítulo possui suas partes.
+
+O Capítulo 02 possui aproximadamente 2h25min,
+portanto terá 3 partes.
+
+*/
+
+const capitulos = [
+
+    {
+        numero: 1,
+        titulo: "Capítulo 01",
+        partes: [
+            {
+                numero: 1,
+                arquivo: "capitulo01/parte01.mp4"
+            }
+        ]
+    },
+
+    {
+        numero: 2,
+        titulo: "Capítulo 02",
+        partes: [
+            {
+                numero: 1,
+                arquivo: "capitulo02/parte01.mp4"
+            },
+            {
+                numero: 2,
+                arquivo: "capitulo02/parte02.mp4"
+            },
+            {
+                numero: 3,
+                arquivo: "capitulo02/parte03.mp4"
+            }
+        ]
+    },
+
+    {
+        numero: 3,
+        titulo: "Capítulo 03",
+        partes: [
+            {
+                numero: 1,
+                arquivo: "capitulo03/parte01.mp4"
+            }
+        ]
+    }
+
 ];
 
+
+/*
+===========================================================
+ELEMENTOS
+===========================================================
+*/
+
+const player = document.getElementById("player");
 const lista = document.getElementById("lista");
+const tituloAtual = document.getElementById("tituloAtual");
+const status = document.getElementById("status");
 
-episodios.forEach(ep => {
 
-    const thumb = `https://img.youtube.com/vi/${ep.id}/hqdefault.jpg`;
+/*
+===========================================================
+MEMÓRIA DA POSIÇÃO
+===========================================================
 
-    const div = document.createElement("div");
-    div.className = "card";
+Guarda onde a pessoa parou.
 
-    div.innerHTML = `
-        <img class="thumb" src="${thumb}">
-        <div class="title">Episódio ${String(ep.ep).padStart(2,'0')}</div>
-    `;
+Isso permite continuar posteriormente.
 
-    div.onclick = () => {
-        document.getElementById("player").src =
-            `https://www.youtube.com/embed/${ep.id}?autoplay=1`;
-        window.scrollTo(0,0);
-    };
+===========================================================
+*/
 
-    lista.appendChild(div);
-});
+let videoAtual = "";
+
+
+/*
+===========================================================
+CARREGAR VÍDEO
+===========================================================
+*/
+
+function reproduzir(titulo, parte, arquivo, botao) {
+
+    const url = VPS + arquivo;
+
+    videoAtual = arquivo;
+
+    /*
+    Remove estado ativo dos outros botões
+    */
+
+    document
+        .querySelectorAll(".parte")
+        .forEach(item => item.classList.remove("ativa"));
+
+    /*
+    Marca o botão atual
+    */
+
+    if (botao) {
+        botao.classList.add("ativa");
+    }
+
+    /*
+    Atualiza informações
+    */
+
+    tituloAtual.textContent =
+        titulo + " — Parte " + String(parte).padStart(2, "0");
+
+    status.textContent =
+        "Carregando vídeo...";
+
+    /*
+    Carrega vídeo
+    */
+
+    player.src = url;
+
+    player.load();
+
+    /*
+    Recupera posição salva
+    */
+
+    const chave =
+        "posicao_" + arquivo;
+
+    const posicao =
+        localStorage.getItem(chave);
+
+    player.addEventListener(
+        "loadedmetadata",
+        function restaurar() {
+
+            player.removeEventListener(
+                "loadedmetadata",
+                restaurar
+            );
+
+            if (posicao) {
+
+                const segundos =
+                    parseFloat(posicao);
+
+                if (
+                    !isNaN(segundos) &&
+                    segundos > 5 &&
+                    segundos < player.duration - 10
+                ) {
+
+                    player.currentTime = segundos;
+
+                }
+            }
+
+            status.textContent =
+                titulo +
+                " — Parte " +
+                String(parte).padStart(2, "0");
+
+        }
+    );
+
+    /*
+    Inicia reprodução
+    */
+
+    player.play().catch(() => {});
+
+    /*
+    Volta para o player
+    */
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/*
+===========================================================
+SALVAR POSIÇÃO
+===========================================================
+*/
+
+player.addEventListener(
+    "timeupdate",
+    function () {
+
+        if (!videoAtual) {
+            return;
+        }
+
+        /*
+        Evita gravar a cada milissegundo.
+        */
+
+        if (
+            Math.floor(player.currentTime) % 5 !== 0
+        ) {
+            return;
+        }
+
+        localStorage.setItem(
+            "posicao_" + videoAtual,
+            player.currentTime
+        );
+    }
+);
+
+
+/*
+===========================================================
+GERAR LISTA
+===========================================================
+*/
+
+function criarLista() {
+
+    lista.innerHTML = "";
+
+    capitulos.forEach(capitulo => {
+
+        const bloco =
+            document.createElement("section");
+
+        bloco.className = "capitulo";
+
+        const titulo =
+            document.createElement("div");
+
+        titulo.className =
+            "capitulo-titulo";
+
+        titulo.textContent =
+            capitulo.titulo;
+
+        bloco.appendChild(titulo);
+
+
+        const partes =
+            document.createElement("div");
+
+        partes.className = "partes";
+
+
+        capitulo.partes.forEach(parte => {
+
+            const botao =
+                document.createElement("button");
+
+            botao.className = "parte";
+
+            botao.textContent =
+                "▶ Parte " +
+                String(parte.numero).padStart(2, "0");
+
+            botao.addEventListener(
+                "click",
+                function () {
+
+                    reproduzir(
+                        capitulo.titulo,
+                        parte.numero,
+                        parte.arquivo,
+                        botao
+                    );
+
+                }
+            );
+
+            partes.appendChild(botao);
+
+        });
+
+
+        bloco.appendChild(partes);
+
+        lista.appendChild(bloco);
+
+    });
+
+}
+
+
+/*
+===========================================================
+INICIALIZA
+===========================================================
+*/
+
+criarLista();
 
 </script>
 
